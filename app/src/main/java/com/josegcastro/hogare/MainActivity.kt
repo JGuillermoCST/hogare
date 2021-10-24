@@ -6,15 +6,15 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.josegcastro.hogare.components.Drawer
 import com.josegcastro.hogare.components.TopBar
 import com.josegcastro.hogare.ui.theme.HogareTheme
-import com.josegcastro.hogare.views.LoginScreen
 import com.josegcastro.hogare.navigation.Destinations.Ad
 import com.josegcastro.hogare.navigation.Destinations.Reservation
 import com.josegcastro.hogare.navigation.Destinations.Payment
+import com.josegcastro.hogare.navigation.Destinations.Visitant
+import com.josegcastro.hogare.navigation.Destinations.Release
 import com.josegcastro.hogare.navigation.NavigationHost
 
 class MainActivity : ComponentActivity() {
@@ -41,7 +41,7 @@ fun MainScreen() {
     )
     val scope = rememberCoroutineScope()
 
-    val navigationItems = listOf(Ad, Reservation, Payment)
+    val navigationItems = listOf(Ad, Reservation, Payment, Visitant, Release)
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -50,13 +50,5 @@ fun MainScreen() {
         drawerGesturesEnabled = true
     ){
         NavigationHost(navController)
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    HogareTheme {
-        MainScreen()
     }
 }

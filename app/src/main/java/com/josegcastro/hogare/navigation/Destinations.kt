@@ -12,4 +12,6 @@ sealed class Destinations(
     object Ad: Destinations("adscreen", "Avisos", Icons.Filled.Home)
     object Reservation: Destinations("reservationscreen", "Reservaciones", Icons.Filled.Article)
     object Payment: Destinations("paymentscreen", "Pagos", Icons.Filled.MonetizationOn)
+    object Visitant: Destinations("visitantscreen", "Visitantes", Icons.Filled.People)
+    object Release: Destinations("releasescreen", "Comunicados", Icons.Filled.Pages)
 }
