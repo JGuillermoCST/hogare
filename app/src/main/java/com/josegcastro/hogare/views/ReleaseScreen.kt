@@ -1,10 +1,8 @@
 package com.josegcastro.hogare.views
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -17,8 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.josegcastro.hogare.constants.Release
-import com.josegcastro.hogare.constants.Values
+import com.josegcastro.hogare.models.Release
 
 @Composable
 fun ReleaseScreen(navController: NavHostController) {
@@ -33,9 +30,9 @@ fun ReleaseScreen(navController: NavHostController) {
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ){
 
-            items(Values.releasesList) {
-                ReleaseCard(navController = navController, rel = it)
-            }
+//            items(Values.releasesList) {
+//                ReleaseCard(navController = navController, rel = it)
+//            }
         }
     }
 }
@@ -47,7 +44,6 @@ fun ReleaseCard(navController: NavHostController, rel: Release) {
             .fillMaxSize()
             .clip(RoundedCornerShape(12.dp))
             .background(Color.White)
-            .clickable { navController.navigate("releasedetail/${rel.id}") }
     ) {
         Column(
             modifier = Modifier
@@ -78,7 +74,7 @@ fun ReleaseCard(navController: NavHostController, rel: Release) {
             Spacer(modifier = Modifier.height(3.dp))
 
             Text(
-                text = "${rel.date} ${rel.hour}",
+                text = rel.created,
                 style = TextStyle(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,

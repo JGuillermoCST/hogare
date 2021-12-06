@@ -3,7 +3,6 @@ package com.josegcastro.hogare.views
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,8 +14,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.josegcastro.hogare.constants.Values
-import com.josegcastro.hogare.constants.Visitant
+import com.josegcastro.hogare.models.Visit
 
 @Composable
 fun VisitantScreen() {
@@ -31,15 +29,15 @@ fun VisitantScreen() {
             verticalArrangement = Arrangement.spacedBy(20.dp)
             ){
 
-            items(Values.visitantList) {
-                VisitantCard(visitant = it)
-            }
+//            items(Values.visitantList) {
+//                VisitantCard(visitant = it)
+//            }
         }
     }
 }
 
 @Composable
-fun VisitantCard(visitant: Visitant) {
+fun VisitantCard(visitant: Visit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -53,7 +51,7 @@ fun VisitantCard(visitant: Visitant) {
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = visitant.name,
+                text = "${visitant.name} ${visitant.lastName}",
                 style = TextStyle(
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Medium
@@ -63,7 +61,7 @@ fun VisitantCard(visitant: Visitant) {
             Spacer(modifier = Modifier.height(13.dp))
 
             Text(
-                text = "Asunto: ${visitant.kind}",
+                text = "Edad: ${visitant.age}",
                 style = TextStyle(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
@@ -72,7 +70,7 @@ fun VisitantCard(visitant: Visitant) {
             )
 
             Text(
-                text = "Registrado el: ${visitant.date}",
+                text = "Registrado el: ${visitant.date} ${visitant.hour}",
                 style = TextStyle(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
@@ -81,7 +79,7 @@ fun VisitantCard(visitant: Visitant) {
             )
 
             Text(
-                text = "Clave de Acceso: ${visitant.accessKey}",
+                text = "Sexo del visitante: ${visitant.sex}",
                 style = TextStyle(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,

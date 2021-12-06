@@ -4,32 +4,21 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Colors
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.josegcastro.hogare.R
-import com.josegcastro.hogare.constants.Ad
-import com.josegcastro.hogare.constants.Reservation
-import com.josegcastro.hogare.constants.Values
-import com.josegcastro.hogare.navigation.Destinations
-import com.josegcastro.hogare.ui.theme.HogareTheme
+import com.josegcastro.hogare.models.Reservation
 
 @Composable
 fun ReservationScreen() {
@@ -49,9 +38,9 @@ fun ReservationScreen() {
 
             }
 
-            items(Values.resList) {
-                ResCard(item = it)
-            }
+//            items(Values.resList) {
+//                ResCard(item = it)
+//            }
         }
     }
 }
@@ -83,7 +72,7 @@ fun ResCard(item: Reservation) {
             Spacer(modifier = Modifier.height(13.dp))
 
             Text(
-                text = item.title,
+                text = item.area,
                 style = TextStyle(
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
@@ -91,7 +80,7 @@ fun ResCard(item: Reservation) {
             )
 
             Text(
-                text = "Costo: $${item.cost} MXN",
+                text = item.date,
                 style = TextStyle(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Light,
@@ -103,18 +92,10 @@ fun ResCard(item: Reservation) {
             Spacer(modifier = Modifier.height(13.dp))
 
             Text(
-                text = "Disponibilidad:",
+                text = item.hour,
                 style = TextStyle(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium
-                )
-            )
-
-            Text(
-                text = item.availability,
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Normal
                 )
             )
         }
