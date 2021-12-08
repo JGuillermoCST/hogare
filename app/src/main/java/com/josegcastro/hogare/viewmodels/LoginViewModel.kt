@@ -1,48 +1,58 @@
 package com.josegcastro.hogare.viewmodels
 
+import android.content.Context
+import android.util.Log
 import android.util.Patterns
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.josegcastro.hogare.R
+import androidx.navigation.NavController
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.josegcastro.hogare.constants.Values
 import com.josegcastro.hogare.models.LoginState
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class LoginViewModel: ViewModel() {
+class LoginViewModel(ctx: Context,navController: NavController): ViewModel() {
 
     val state: MutableState<LoginState> = mutableStateOf(LoginState())
+    private val navController = navController
+    private val context = ctx
+    private var requestQueue: RequestQueue = Volley.newRequestQueue(context)
 
-    fun login(email: String, password: String) {
-        val errorMessage = if(email.isBlank() || password.isBlank()) {
-            R.string.error_input_empty
-        } else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            R.string.error_not_a_valid_email
-        } else if(email != "user@gmail.com" || password != "password"){
-            R.string.error_invalid_credentials
-        } else null
-
-        errorMessage?.let {
-            state.value = state.value.copy(errorMessage = it)
-            return
+    fun login() {
+        if(state.component1().email.isBlank() || state.component1().password.isBlank()) {
+            Log.e("LOGIN ERROR", "Debe rellemar todos los campos")
+        } else if(!Patterns.EMAIL_ADDRESS.matcher(state.component1().email).matches()){
+            Log.e("LOGIN ERROR", "El email es inválido")
         }
 
         viewModelScope.launch {
-            state.value = state.value.copy(displayProgressBar = true)
+            val jsonRequest = JsonObjectRequest(Request.Method.GET, "https://hogare.josecst.com/api/usuario/login/${state.component1().email}", null, { result ->
 
-            delay(3000)
+                if (result["email"].toString() == state.component1().email && result["contraseña"].toString() == state.component1().password) {
+                    Values.id = result["id"].toString()
 
-            state.value = state.value.copy(email = email, password = password)
-            state.value = state.value.copy(displayProgressBar = false)
-            state.value = state.value.copy(successLogin = true)
+                    UserViewModel(this@LoginViewModel.context)
+
+                    viewModelScope.launch(Dispatchers.Main) {
+                        this@LoginViewModel.navController.navigate("main") {
+                            popUpTo(navController.graph.startDestinationId)
+                            launchSingleTop = true
+                        }
+                    }
+                } else {
+                    Log.e("LOGIN ERROR", "Las credenciales no coinciden")
+                }
+            }, { error ->
+                Log.e("ADS ERROR", error.toString())
+            })
+
+            requestQueue.add(jsonRequest)
         }
     }
-
-    fun hideErrorDialog() {
-        state.value = state.value.copy(
-            errorMessage = null
-        )
-    }
-
 }

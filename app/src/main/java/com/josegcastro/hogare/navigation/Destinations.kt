@@ -16,4 +16,6 @@ sealed class Destinations(
     object Release: Destinations("releasescreen", "Comunicados", Icons.Filled.Pages)
     object Achievement: Destinations("achievementscreen", "Logros", Icons.Filled.Bookmark)
     object Message: Destinations("messagescreen", "Mensajes recibidos", Icons.Filled.Message)
+
+    object Login: Destinations("login", "Cerrar sesión", Icons.Filled.Logout)
 }

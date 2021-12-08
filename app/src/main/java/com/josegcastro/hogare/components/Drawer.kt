@@ -18,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.josegcastro.hogare.R
 import com.josegcastro.hogare.navigation.Destinations
@@ -30,7 +31,8 @@ fun Drawer(
     scope: CoroutineScope,
     scaffoldState: ScaffoldState,
     navController: NavHostController,
-    items: List<Destinations>
+    items: List<Destinations>,
+    altNav: NavController
 ) {
     Column {
         Image(
@@ -48,6 +50,7 @@ fun Drawer(
         )
 
         val currentRoute = currentRoute(navController)
+
         items.forEach { item ->
             DrawerItem(item = item, selected = currentRoute == item.route) {
                 navController.navigate(item.route) {
@@ -57,6 +60,16 @@ fun Drawer(
                 scope.launch {
                     scaffoldState.drawerState.close()
                 }
+            }
+        }
+
+        DrawerItem(item = Destinations.Login, selected = false) {
+            scope.launch {
+                scaffoldState.drawerState.close()
+            }
+
+            altNav.navigate("login") {
+                launchSingleTop = true
             }
         }
     }

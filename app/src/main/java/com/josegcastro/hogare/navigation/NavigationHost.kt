@@ -18,6 +18,7 @@ fun NavigationHost(navController: NavHostController, appCTX: Context) {
     val releases = ReleaseViewModel(appCTX)
     val achievements = AchievementViewModel(appCTX)
     val messages = MessageViewModel(appCTX)
+    val user = UserViewModel(appCTX)
 
     NavHost(navController = navController, startDestination = Ad.route) {
 
@@ -29,5 +30,6 @@ fun NavigationHost(navController: NavHostController, appCTX: Context) {
         composable(Release.route) { ReleaseScreen(list = releases.list) }
         composable(Achievement.route) { AchievementScreen(list = achievements.list) }
         composable(Message.route) { MessageScreen(list = messages.list) }
+        composable("userscreen") { UserScreen(user = user.user) }
     }
 }

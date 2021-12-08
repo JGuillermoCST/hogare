@@ -34,8 +34,8 @@ fun MainContext(logNav: NavController, appCTX: Context) {
 
     Scaffold(
         scaffoldState = scaffoldState,
-        topBar = { TopBar(scope, scaffoldState ) },
-        drawerContent = { Drawer(scope, scaffoldState, navController, items = navigationItems) },
+        topBar = { TopBar(scope, scaffoldState, navController) },
+        drawerContent = { Drawer(scope, scaffoldState, navController, items = navigationItems, altNav = logNav) },
         drawerGesturesEnabled = true
     ){
         NavigationHost(navController,appCTX = appCTX)

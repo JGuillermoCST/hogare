@@ -31,11 +31,13 @@ import androidx.navigation.NavController
 import com.josegcastro.hogare.R
 import com.josegcastro.hogare.components.RoundedButton
 import com.josegcastro.hogare.components.TransparentTextField
+import com.josegcastro.hogare.models.LoginState
+import com.josegcastro.hogare.viewmodels.LoginViewModel
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(state: MutableState<LoginState>, vm: LoginViewModel) {
     
-    val usernameValue = rememberSaveable { mutableStateOf("") }
+    val emailValue = rememberSaveable { mutableStateOf("") }
     val passwordValue = rememberSaveable { mutableStateOf("") }
     var passwordVisibility by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
@@ -104,8 +106,8 @@ fun LoginScreen(navController: NavController) {
                         ) {
 
                             TransparentTextField(
-                                textFieldValue = usernameValue,
-                                textLabel = "Username",
+                                textFieldValue = emailValue,
+                                textLabel = "Email",
                                 keyboardType = KeyboardType.Text,
                                 keyboardActions = KeyboardActions(
                                     onNext = {
@@ -117,7 +119,7 @@ fun LoginScreen(navController: NavController) {
 
                             TransparentTextField(
                                 textFieldValue = passwordValue,
-                                textLabel = "Username",
+                                textLabel = "Password",
                                 keyboardType = KeyboardType.Password,
                                 keyboardActions = KeyboardActions(
                                     onDone = {
@@ -165,10 +167,8 @@ fun LoginScreen(navController: NavController) {
                                 text = "Login",
                                 displayProgressBar = false,
                                 onClick = {
-                                    navController.navigate("main") {
-                                        popUpTo(navController.graph.startDestinationId)
-                                        launchSingleTop = true
-                                    }
+                                    state.value = state.value.copy(email = emailValue.component1(),password = passwordValue.component1())
+                                    vm.login()
                                 }
                             )
                         }
@@ -183,7 +183,10 @@ fun LoginScreen(navController: NavController) {
                             end.linkTo(surface.end, margin = 36.dp)
                         },
                     backgroundColor = MaterialTheme.colors.primary,
-                    onClick = {}
+                    onClick = {
+                        state.value = state.value.copy(email = emailValue.component1(),password = passwordValue.component1())
+                        vm.login()
+                    }
                 ) {
 
                     Icon(

@@ -10,6 +10,7 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.josegcastro.hogare.constants.Values
 import com.josegcastro.hogare.models.Visit
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -25,7 +26,7 @@ class VisitantViewModel(ctx: Context): ViewModel() {
 
     private fun getVisitants() {
         viewModelScope.launch {
-            val jsonRequest = JsonArrayRequest(Request.Method.GET, "https://hogare.josecst.com/api/visitas/1", null, { result ->
+            val jsonRequest = JsonArrayRequest(Request.Method.GET, "https://hogare.josecst.com/api/visitas/${Values.idLocation}", null, { result ->
                 for (t in 0 until result.length()) saveList(list, result[t] as JSONObject)
             }, { error ->
                 Log.e("ADS ERROR", error.toString())

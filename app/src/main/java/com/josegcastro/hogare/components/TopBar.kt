@@ -6,17 +6,20 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavController
 import com.josegcastro.hogare.R
+import com.josegcastro.hogare.constants.Values
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
 fun TopBar(
     scope: CoroutineScope,
-    scaffoldState: ScaffoldState
+    scaffoldState: ScaffoldState,
+    navController: NavController
 ) {
     TopAppBar(
-        title = { Text(LocalContext.current.getString(R.string.app_name)) },
+        title = { Text(Values.title) },
         navigationIcon = {
             IconButton(onClick = {
                 scope.launch {
@@ -28,7 +31,7 @@ fun TopBar(
         },
         actions = {
             IconButton(onClick = {
-                // TODO: Display SnackBar
+                navController.navigate("userscreen")
             }) {
                 Icon(imageVector = Icons.Default.Person, contentDescription = "User Icon")
             }
