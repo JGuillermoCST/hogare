@@ -14,4 +14,6 @@ sealed class Destinations(
     object Payment: Destinations("paymentscreen", "Pagos", Icons.Filled.MonetizationOn)
     object Visitant: Destinations("visitantscreen", "Visitantes", Icons.Filled.People)
     object Release: Destinations("releasescreen", "Comunicados", Icons.Filled.Pages)
+    object Achievement: Destinations("achievementscreen", "Logros", Icons.Filled.Bookmark)
+    object Message: Destinations("messagescreen", "Mensajes recibidos", Icons.Filled.Message)
 }

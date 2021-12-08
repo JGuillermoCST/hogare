@@ -5,7 +5,7 @@ import com.josegcastro.hogare.models.Payment
 object Values {
 
     var id: String = ""
-
+    var idLocation: String = ""
 
     val paymentsList = listOf(
         Payment("Cuota mensual",389.0, "10-01-2021", "C-23482", 0),

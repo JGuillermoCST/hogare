@@ -1,6 +1,5 @@
 package com.josegcastro.hogare.views
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,18 +11,15 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.josegcastro.hogare.R
-import com.josegcastro.hogare.models.Reservation
+import com.josegcastro.hogare.models.Message
 
 @Composable
-fun ReservationScreen(list: SnapshotStateList<Reservation>) {
+fun MessageScreen(list: SnapshotStateList<Message>) {
 
     Box(
         modifier = Modifier
@@ -34,15 +30,16 @@ fun ReservationScreen(list: SnapshotStateList<Reservation>) {
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp),
         ){
+
             items(list) {
-                ResCard(item = it)
+                MessageCard(msg = it)
             }
         }
     }
 }
 
 @Composable
-fun ResCard(item: Reservation) {
+fun MessageCard(msg: Message) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -55,43 +52,40 @@ fun ResCard(item: Reservation) {
                 .padding(8.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-
-            Image(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(220.dp),
-                painter = if (item.area == "Alberca") painterResource(id = R.drawable.pool) else painterResource(id = R.drawable.logo),
-                contentDescription = "Reservation image",
-                contentScale = ContentScale.Crop
-            )
-
-            Spacer(modifier = Modifier.height(13.dp))
-
             Text(
-                text = item.area,
+                text = "De: ${msg.name} ${msg.lastName}",
                 style = TextStyle(
                     fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Medium
                 )
             )
 
             Text(
-                text = item.date,
+                text = msg.created,
                 style = TextStyle(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Light,
-                    fontStyle = FontStyle.Italic,
-                    color = Color.Blue
+                    fontStyle = FontStyle.Italic
+                )
+            )
+
+            Text(
+                text = msg.kind,
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Normal,
+                    fontStyle = FontStyle.Italic
                 )
             )
 
             Spacer(modifier = Modifier.height(13.dp))
 
             Text(
-                text = item.hour,
+                text = msg.content,
                 style = TextStyle(
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal,
+                    fontStyle = FontStyle.Normal
                 )
             )
         }

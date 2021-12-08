@@ -3,9 +3,11 @@ package com.josegcastro.hogare.views
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -17,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import com.josegcastro.hogare.models.Visit
 
 @Composable
-fun VisitantScreen() {
+fun VisitantScreen(list: SnapshotStateList<Visit>) {
 
     Box(
         modifier = Modifier
@@ -27,11 +29,11 @@ fun VisitantScreen() {
         LazyColumn(
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp)
-            ){
+        ){
 
-//            items(Values.visitantList) {
-//                VisitantCard(visitant = it)
-//            }
+            items(list) {
+                VisitantCard(visitant = it)
+            }
         }
     }
 }

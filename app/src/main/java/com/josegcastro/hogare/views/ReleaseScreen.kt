@@ -3,9 +3,11 @@ package com.josegcastro.hogare.views
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -14,11 +16,10 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.josegcastro.hogare.models.Release
 
 @Composable
-fun ReleaseScreen(navController: NavHostController) {
+fun ReleaseScreen(list: SnapshotStateList<Release>) {
 
     Box(
         modifier = Modifier
@@ -30,15 +31,15 @@ fun ReleaseScreen(navController: NavHostController) {
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ){
 
-//            items(Values.releasesList) {
-//                ReleaseCard(navController = navController, rel = it)
-//            }
+            items(list) {
+                ReleaseCard(rel = it)
+            }
         }
     }
 }
 
 @Composable
-fun ReleaseCard(navController: NavHostController, rel: Release) {
+fun ReleaseCard(rel: Release) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -79,6 +80,17 @@ fun ReleaseCard(navController: NavHostController, rel: Release) {
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
                     fontStyle = FontStyle.Normal
+                )
+            )
+
+            Spacer(modifier = Modifier.height(3.dp))
+
+            Text(
+                text = rel.content,
+                style = TextStyle(
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal,
+                    fontStyle = FontStyle.Italic
                 )
             )
         }
